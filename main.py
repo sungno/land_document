@@ -33,7 +33,7 @@ if __name__ == "__main__":
     print("Ver 2.0")
     try:
         # scripts.json 파일의 URL
-        scripts_json_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/scripts.json"
+        scripts_json_url = "https://raw.githubusercontent.com/sungno/land_document/main/scripts.json"
 
         # 모든 스크립트 다운로드 및 로드
         download_and_load_all_scripts(scripts_json_url)
