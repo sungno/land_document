@@ -63,6 +63,7 @@ try:
     success_cnt = 0
     fail_cnt = 0
     for num, do, si, dong, ri, san, jibun, boobun, user_id, user_pw in original_df.to_numpy().tolist():
+        start_time = time.time()  # 시작 시간 기록
         ip_cnt += 1
         current_row = f"[{ip_cnt}] // {num, do, si, dong, ri, san, jibun, boobun}"
         print(f"■ {current_row} 수집 시도....")
@@ -585,6 +586,8 @@ try:
                 # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
                 df.to_csv(file_name, mode='a', header=not file_exists, index=False)
             print(f"■ {current_row} 수집 성공")
+            minutes, seconds = get_lab_time(start_time)
+            print(f"■ 소요시간 : {minutes}분 {seconds}초")
             success_cnt += 1
         except Exception as e:
             print(e)

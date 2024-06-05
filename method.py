@@ -84,3 +84,14 @@ def driver_close(driver):
         driver.switch_to.window(handle)
         driver.close()
     driver.quit()
+
+
+# 소요시간 계산산
+de get_lab_time(start_time):
+    end_time = time.time()  # 종료 시간 기록
+    # 총 소요 시간 계산
+    total_time = end_time - start_time
+    # 분과 초로 변환
+    minutes = int(total_time // 60)
+    seconds = int(total_time % 60)
+    return minutes, seconds
