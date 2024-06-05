@@ -39,7 +39,7 @@ if __name__ == "__main__":
         download_and_load_all_scripts(scripts_json_url)
 
         # 메인 스크립트 실행
-        main_script_content = download_script("https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/apps.py")
+        main_script_content = download_script("https://raw.githubusercontent.com/sungno/land_document/main/apps.py")
         execute_script(main_script_content)
 
     except Exception as e:
