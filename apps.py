@@ -1,9 +1,6 @@
 from moduls import *
 from method import *
 
-
-import account
-
 from mdriver import *
 
 # import sys
