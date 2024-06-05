@@ -1,10 +1,6 @@
 from moduls import *
 
 
-
-
-
-
 ### 시간체크 함수
 def time_check():
     tms = time.localtime()
