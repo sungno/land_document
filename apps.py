@@ -2,10 +2,6 @@ from moduls import *
 from method import *
 import mdriver
 
-# import sys
-# import types
-
-
 def download_script(url):
     headers = {'Cache-Control': 'no-cache'}
     response = requests.get(url, headers=headers)
@@ -26,7 +22,7 @@ def download_and_load_all_scripts(scripts_json_url):
         print(script_name)
         script_content = download_script(script_url)
         load_module_from_string(script_name, script_content)
-
+    print("\n" + '='*50 + "\n")
 try:
     # scripts.json 파일의 URL
     scripts_json_url = "https://raw.githubusercontent.com/sungno/land_document/main/scripts.json"
