@@ -58,7 +58,7 @@ try:
     print(f"파일 변환 완료")
     print(f"□ 수집 시작")
 
-    ### 수집 시작작
+    ### 수집 시작
     ip_cnt = 0
     success_cnt = 0
     fail_cnt = 0
@@ -90,7 +90,6 @@ try:
             file_exists = os.path.isfile(fail_file_name)
             # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
             fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
-
             total_mail = f"{do} {si} {dong} {ri} {san} {jibun} {boobun}"
             fail_cnt += 1
             continue
@@ -197,7 +196,6 @@ try:
             ### 주소선택창에서 해당주소가 있을때까지 비교후 클릭
             print('주소선택창에서 해당주소가 있을때까지 비교후 클릭')
             for i in aa:
-                print(i.text)
                 if ri == '':
                     if f'{si}' in i.text and f'({dong})' in i.text:
                         i.send_keys(Keys.ENTER)
@@ -619,12 +617,11 @@ try:
         print(f"   ■ 성공개수 : {success_cnt}")
         print(f"   ■ 실패개수 : {fail_cnt}")
         try:
-            if ip_cnt % 1 == 0:
+            if ip_cnt % 50 == 0:
                 ip_change_click()
         except:
             print('★ 아이피 변경 실패')
         print()
-
     print('■■■■■■ 전체 수집 완료 ■■■■■■')
 
 except Exception as e:
