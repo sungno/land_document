@@ -63,7 +63,8 @@ def make_driver():
     options.headless = False
 
     chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
-    driver = uc.Chrome(options=options)
+    # driver = uc.Chrome(options=options)
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.implicitly_wait(20)
     wait = WebDriverWait(driver, 60)
