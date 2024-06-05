@@ -146,6 +146,8 @@ try:
                 print("펼쳐보기 EXCEPTION!")
                 time.sleep(5)
                 driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
+                time.sleep(1)
                 wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
                 time.sleep(10)
                 wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
