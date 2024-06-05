@@ -102,7 +102,7 @@ try:
             tms = time.localtime()
             all_date = time.strftime('%Y-%m-%d', tms)
 
-            driver, wait = mdriver.make_driver()
+            driver, wait = mdriver.starter()
             gov_login(driver, wait, user_id, user_pw)
 
             print('토지임야 체크')
@@ -229,6 +229,7 @@ try:
             print('부번 입력 완료')
             ### 연혁 인쇄 유무(히스토리)
             wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']"""))).click()
+            print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
             print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
             ### 민원신청하기
             wait.until(EC.presence_of_element_located((By.ID, "btn_end"))).click()

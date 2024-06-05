@@ -74,3 +74,30 @@ def make_driver():
     driver.execute_cdp_cmd("Emulation.setUserAgentOverride", UA_Data)
 
     return driver, wait
+
+
+### 셀레니움 스타터 세팅
+def starter():
+    # user_agent세팅 (사용자가 직접 제어 하는것처럼 하기 위해 세팅)
+    UA_list = read_agents()
+    UA = random.choice(UA_list)  # seed = time.time()
+    option = Options()
+    option.add_argument('user-agent=' + UA)
+    option.add_argument("--no-first-run --no-service-autorun --password-store=basic")
+    option.add_argument('--disable-logging')
+    # origin 허용(동적데이터 불러오기)
+    option.add_argument("--disable-web-security")
+    option.add_argument("--disable-site-isolation-trials")
+    option.headless = False
+    option.add_argument('window-size=1920x1080')
+    option.add_argument('lang=ko_KR')
+    option.add_experimental_option("detach", False)
+    driver = webdriver.Chrome(options=option)
+    driver.maximize_window()
+
+    driver.implicitly_wait(20)
+    wait = WebDriverWait(driver, 60)
+    UA_Data = make_user_agent(UA, False)
+    driver.execute_cdp_cmd("Network.setUserAgentOverride", UA_Data)
+    driver.execute_cdp_cmd("Emulation.setUserAgentOverride", UA_Data)
+    return driver, wait

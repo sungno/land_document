@@ -1,27 +1,7 @@
 from moduls import *
 
 
-### 셀레니움 스타터 세팅
-def starter():
-    # user_agent세팅 (사용자가 직접 제어 하는것처럼 하기 위해 세팅)
-    user_agent = "Mozilla/5.0 (Linux; Android 9; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.83 Mobile Safari/537.36"
 
-    option = Options()
-    subprocess.Popen(
-        r'C:\Program Files\Google\Chrome\Application\chrome.exe --remote-debugging-port=9222 --user-data-dir="C:\chrometemp"')  # 디버거 크롬 구동
-    option.add_argument('user-agent=' + user_agent)
-    option.add_experimental_option('debuggerAddress', '127.0.0.1:9222')  # 디버거 모드 세팅
-    option.add_argument('window-size=1920x1080')
-    option.add_argument('lang=ko_KR')
-    option.add_argument(
-        f'user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36')
-    option.add_experimental_option("detach", False)
-    chromedriver_autoinstaller.install(True)
-    driver = webdriver.Chrome(options=option)
-
-    driver.implicitly_wait(20)
-    wait = WebDriverWait(driver, 60)
-    return driver, wait
 
 
 

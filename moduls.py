@@ -11,6 +11,7 @@ from pywinauto import findwindows
 from pywinauto import application
 
 import selenium
+from selenium import webdriver
 from user_agents import parse
 import undetected_chromedriver as uc
 import chromedriver_autoinstaller
