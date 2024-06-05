@@ -1,7 +1,6 @@
 from moduls import *
 from method import *
-
-from mdriver import *
+import mdriver
 
 # import sys
 # import types

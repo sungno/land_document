@@ -1,7 +1,6 @@
 from moduls import *
 
 
-
 def make_user_agent(ua, is_mobile):
     user_agent = parse(ua)
     model = user_agent.device.model
