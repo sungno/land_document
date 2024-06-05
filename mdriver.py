@@ -92,9 +92,12 @@ def starter():
     option.add_argument('window-size=1920x1080')
     option.add_argument('lang=ko_KR')
     option.add_experimental_option("detach", False)
+    option.add_argument("disable-blink-features=AutomationControlled")  # 자동화 탐지 방지
+    option.add_experimental_option("excludeSwitches", ["enable-automation"])  # 자동화 표시 제거
+    option.add_experimental_option('useAutomationExtension', False)  # 자동화 확장 기능 사용 안 함
+
     driver = webdriver.Chrome(options=option)
     driver.maximize_window()
-
     driver.implicitly_wait(20)
     wait = WebDriverWait(driver, 60)
     UA_Data = make_user_agent(UA, False)
