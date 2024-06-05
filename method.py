@@ -87,7 +87,7 @@ def driver_close(driver):
 
 
 # 소요시간 계산산
-de get_lab_time(start_time):
+def get_lab_time(start_time):
     end_time = time.time()  # 종료 시간 기록
     # 총 소요 시간 계산
     total_time = end_time - start_time
