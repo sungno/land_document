@@ -229,7 +229,6 @@ try:
             ### 연혁 인쇄 유무(히스토리)
             wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']"""))).click()
             print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
-            print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
             ### 민원신청하기
             wait.until(EC.presence_of_element_located((By.ID, "btn_end"))).click()
             print("민원신청하기 클릭")
