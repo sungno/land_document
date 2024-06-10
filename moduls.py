@@ -1,5 +1,5 @@
 import sys, types, os
-import json, time, random, re
+import json, time, random, re, csv
 
 import requests
 import subprocess

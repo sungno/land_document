@@ -41,7 +41,15 @@ try:
     account_df = pd.read_csv("계정.csv")
 
     df = pd.read_csv("토지대장_VM.csv")
-    df_db = pd.read_csv("토지대장_VM_결과.csv")
+
+    f = open(file_name, 'rt', encoding='UTF8')
+    reader = csv.reader(f)
+    csv_list = []
+    for l in reader:
+        csv_list.append(l)
+    f.close()
+    df_db = pd.DataFrame(csv_list)
+
 
     # 저장되어있는 데이터중 마지막 일련번호 찾기
     df_db_last_number = df_db['일련번호'][len(df_db['일련번호']) - 1]
