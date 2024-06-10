@@ -39,9 +39,11 @@ try:
     file_name = "토지대장_VM_결과.csv"
     fail_file_name = '토지대장_VM_실패리스트.csv'  # 실패파일 파일명 만들기
     account_df = pd.read_csv("계정.csv")
-
     df = pd.read_csv("토지대장_VM.csv")
 
+    # 업데이트날짜 컬럼을 추가하면서
+    # 기존 수집된 데이터와 이후 수집한 데이터의 열 개수가 달라
+    # none 값 입력후 데이터프레임으로 변환
     f = open(file_name, 'rt', encoding='UTF8')
     reader = csv.reader(f)
     csv_list = []
@@ -49,10 +51,11 @@ try:
         csv_list.append(l)
     f.close()
     df_db = pd.DataFrame(csv_list)
-
-
+    header = df_db.iloc[0]
+    df_db = df_db[1:]
+    df_db.rename(columns=header, inplace=True)
     # 저장되어있는 데이터중 마지막 일련번호 찾기
-    df_db_last_number = df_db['일련번호'][len(df_db['일련번호']) - 1]
+    df_db_last_number = int(df_db['일련번호'][len(df_db['일련번호']) - 1])
 
     # 저장되어있는 마지막 일련번호를
     # input file 에서 찾고
