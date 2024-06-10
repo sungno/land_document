@@ -549,6 +549,8 @@ try:
             # print(f"공유지분 - {total_share_box}")
             # print(f"구분 - {total_category_box}")
 
+            now = datetime.now()
+            current_time = now.strftime('%Y-%m-%d %H:%M:%S')
             for t1, t2, t3, t4, t5, t6, t7, t8 in zip(total_date_box, total_change_reason_box, total_mail_box,
                                                       total_name_box, total_code_box, total_cnt_box, total_share_box,
                                                       total_category_box):
@@ -571,7 +573,8 @@ try:
                     '소유자주소': [t3],
                     '소유권변동원인': [t2],
                     '소유권변동일자': [t1],
-                    '지분': [t7]
+                    '지분': [t7],
+                    '업데이트시간': [current_time]
 
                 })
 
