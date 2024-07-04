@@ -1,7 +1,6 @@
 from moduls import *
 from method import *
 import mdriver
-from datetime import datetime
 
 def download_script(url):
     headers = {'Cache-Control': 'no-cache'}
@@ -24,6 +23,7 @@ def download_and_load_all_scripts(scripts_json_url):
         script_content = download_script(script_url)
         load_module_from_string(script_name, script_content)
     print("\n" + '='*50 + "\n")
+
 try:
     # scripts.json 파일의 URL
     scripts_json_url = "https://raw.githubusercontent.com/sungno/land_document/main/scripts.json"
@@ -33,6 +33,7 @@ try:
 
 
     ################### 실행 코드 시작 ###########################################
+    logger, file_handler = setup_logging()
     print('토지대장 수집 시작')
     print(f"파일 변환중....")
 
@@ -102,7 +103,8 @@ try:
             file_exists = os.path.isfile(fail_file_name)
             # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
             fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
-            total_mail = f"{do} {si} {dong} {ri} {san} {jibun} {boobun}"
+            total_mail = f"{num} {do} {si} {dong} {ri} {san} {jibun} {boobun}"
+            logger.error(f'{total_mail} - input 파일에서 지번 입력값 확인요망')
             fail_cnt += 1
             continue
         try:
@@ -191,6 +193,7 @@ try:
 
             aa = driver.find_elements(By.CSS_SELECTOR, "#resultList > a")
 
+
             ## 선택해야할 총주소 만들기
             ## 시가 없는경우 리,동이 없는경우등에 맞춰 조건문으로 거르기
             if ri == "":
@@ -221,6 +224,7 @@ try:
                         i.send_keys(Keys.ENTER)
                         break
             print("클릭 완료")
+            input()
             ### 주소 검색했을때 행정기관 선택하라는 팝업창이 나온다면
             driver.switch_to.window(driver.window_handles[-1])
             source = driver.page_source
@@ -540,26 +544,6 @@ try:
                 total_cnt_box = cnt_box
                 total_share_box = share_box
                 total_category_box = category_box
-
-            # print("================== owrner part ==================")
-            # print(f"날짜 - {owrner_date_box}")
-            # print(f"변동원인 - {owrner_reason_box}")
-            # print(f"주소 - {owrner_mail_box}")
-            # print(f"이름 - {owrner_name_box}")
-            # print(f"코드 - {owrner_code_box}")
-            # print(f"순번 - {cnt_box}")
-            # print(f"공유지분 - {share_box}")
-            # print(f"구분 - {category_box}")
-            #
-            # print("================== total part ==================")
-            # print(f"날짜 - {total_date_box}")
-            # print(f"변동원인 - {total_change_reason_box}")
-            # print(f"주소 - {total_mail_box}")
-            # print(f"이름 - {total_name_box}")
-            # print(f"코드 - {total_code_box}")
-            # print(f"순번 - {total_cnt_box}")
-            # print(f"공유지분 - {total_share_box}")
-            # print(f"구분 - {total_category_box}")
 
             now = datetime.now()
             current_time = now.strftime('%Y-%m-%d %H:%M:%S')

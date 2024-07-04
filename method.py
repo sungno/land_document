@@ -72,6 +72,7 @@ def ip_change_click():
     time.sleep(1)
     print("● IP변경")
 
+
 # 모든 문자열 데이터의 탭 공백을 제거하는 함수 정의
 def remove_tabs_from_dataframe(df):
     # 데이터프레임 내의 모든 문자열 데이터에서 탭 공백 제거
@@ -97,3 +98,29 @@ def get_lab_time(start_time):
     minutes = int(total_time // 60)
     seconds = int(total_time % 60)
     return minutes, seconds
+
+
+# 로그 설정
+def setup_logging():
+    current_time = datetime.today()
+    logfilename = f"{current_time.strftime('%Y%m%d')} 로그.log"
+
+    # 로거 생성
+    logger = logging.getLogger('토지대장 로그')
+    logger.setLevel(logging.DEBUG)
+
+    # 기존 핸들러 제거
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    # 핸들러 생성 (파일 출력)
+    file_handler = logging.FileHandler(logfilename)
+
+    # 포매터 생성 및 핸들러에 설정
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    file_handler.setFormatter(formatter)
+
+    # 로거에 핸들러 추가
+    logger.addHandler(file_handler)
+
+    return logger, file_handler
