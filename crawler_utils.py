@@ -56,11 +56,12 @@ def issued_go_page(wait):
 # 펼쳐보기
 def see_more(driver, wait, san, dong):
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
-    time.sleep(10)
+    time.sleep(1)
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
     print("펼쳐보기 클릭")
 
     # 토지(임야)대장열람 클릭(라디오버튼)
+    time.sleep(1)
     wait.until(EC.presence_of_element_located(
         (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
     print("토지(임야)대장열람 클릭(라디오버튼) 체크")
