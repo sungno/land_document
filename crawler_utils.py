@@ -1,5 +1,6 @@
 from moduls import *
 
+
 ### 정부24 Login
 def gov_login(driver, wait, user_id, user_pw):
     while True:
@@ -139,7 +140,7 @@ def info_input(driver, wait, jibun, boobun):
 
 
 # input파일 지번과 열람문서 지번이 일치하는지 체크
-def jinbun_match_chekced(driver, wait, num, do, si, dong, ri, san, jibun, boobun, fail_file_name, logger):
+def jinbun_match_chekced(driver, wait, jibun, boobun):
     ### 문서 열람후 새창
     time.sleep(5)
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "ibtn.small.dark"))).click()  # 열람문서 클릭
@@ -155,9 +156,8 @@ def jinbun_match_chekced(driver, wait, num, do, si, dong, ri, san, jibun, boobun
     print("input 파일의 지번-부번과 열람문서 지번-부번이 같은지 체크..")
     ### 지번-부번 과 열람문서의 지번과 일치하면 진행, 일치하지 않으면 새로고침후 다시 확인
     ### (5번 반복후 그래도 일치하지 않으면 예외처리하고 실패 목록에 넣기
+    match_checked = False
     for check_cnt in range(1, 6):
-        match_checked = False
-        document_jibun = driver.find_elements(By.CLASS_NAME, "BR1")[3].text
         document_jibun = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "BR1")))[3].text
         document_jibun = document_jibun.replace("산 ", "")
 
@@ -169,12 +169,29 @@ def jinbun_match_chekced(driver, wait, num, do, si, dong, ri, san, jibun, boobun
             print("   지번 불일치")
             driver.close()
             driver.switch_to.window(driver.window_handles[-1])
-            time.sleep(10)
-            driver.refresh()
+            time.sleep(5)
+            wait.until(EC.presence_of_element_located((By.ID, "srch"))).click()
+            time.sleep(1)
 
             wait.until(EC.presence_of_element_located((By.CLASS_NAME, "ibtn.small.dark"))).click()  # 열람문서 클릭
             time.sleep(1)
             driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
             match_checked = False
+
+    if match_checked == False:
+        driver.close()
+        for cnt_check_2 in range(1, 6):
+            wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "ibtn.small.dark")))[cnt_check_2].click()
+            document_jibun = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "BR1")))[3].text
+            document_jibun = document_jibun.replace("산 ", "")
+
+            if total_jibun == document_jibun:
+                print("   지번 일치(2)")
+                match_checked = True
+                break
+            else:
+                print("   지번 불일치(2)")
+                match_checked = False
+                driver.close()
 
     return match_checked, total_jibun

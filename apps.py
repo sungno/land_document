@@ -104,8 +104,7 @@ try:
         crawler_utils.info_input(driver, wait, jibun, boobun)
 
         # input파일 지번과 열람문서 지번이 일치하는지 체크
-        match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, num, do, si, dong, ri, san, jibun, boobun,
-                                                          fail_file_name, logger)
+        match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, jibun, boobun)
         if match_checked == False:
             method.fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name)
             logger.critical(
