@@ -73,15 +73,16 @@ def parsing_part(driver, num, san, total_jibun, file_name):
             # print(st1.find_all('td')[1].text)
             m2 = st1.find_all('td')[1].text
 
-
-
         ### 소유권변동일자
         ### 소유권변동일자는 첫번째줄에서 4번째 td에 해당
-
-        owrner_date_box.append(
-            st1.find_all('td')[3].text.replace("\n", "").replace("\t", "").replace("년 ", "-").replace("월 ",
-                                                                                                      "-").replace(
-                "일 ", ""))
+        owrner_date = st1.find_all('td')[3].text.replace("\n", "").replace("\t", "").replace("년 ", "-").replace(
+            "월 ",
+            "-").replace(
+            "일 ", "")
+        if owrner_date == "":
+            pass
+        else:
+            owrner_date_box.append(owrner_date)
 
         ### 소유자 주소
         if '여백' in st1.find_all('td')[4].text:
