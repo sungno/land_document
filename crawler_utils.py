@@ -180,6 +180,7 @@ def jinbun_match_chekced(driver, wait, jibun, boobun):
 
     if match_checked == False:
         driver.close()
+        driver.switch_to.window(driver.window_handles[-1])
         for cnt_check_2 in range(1, 6):
             wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "ibtn.small.dark")))[cnt_check_2].click()
             document_jibun = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "BR1")))[3].text
