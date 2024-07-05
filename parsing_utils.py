@@ -43,6 +43,13 @@ def parsing_part(driver, num, san, total_jibun, file_name):
             else:
                 line_2nd_box.append(g)
 
+        ### 토지표시변경사유, 토지표시변경일자는 마지막 값만 넣으면 되기대문에 각각 변수 reason, reason_date에 대입
+        reason_text = line_1st_box[len(line_1st_box) - 3].find_all('td')[2].text
+        reason = reason_text.replace("\t", "").split("\n")[-1]
+        reason_date = " ".join(reason_text.replace("\t", "").split("\n")[:-1]).split(")")[-1].replace("년  ",
+                                                                                                      " - ").replace(
+            "월 ", " -").replace("일 ", "")
+
     owrner_date_box = []
     owrner_reason_box = []
     owrner_mail_box = []
@@ -66,19 +73,7 @@ def parsing_part(driver, num, san, total_jibun, file_name):
             # print(st1.find_all('td')[1].text)
             m2 = st1.find_all('td')[1].text
 
-        ### 토지표시변경사유, 토지표시변경일자
-        ### 토지표시변경사유, 토지표시변경일자는 마지막 값만 넣으면 되기대문에 각각 변수 reason, reason_date에 대입
-        if '여백' in st1.find_all('td')[2].text:
-            pass
-        elif st1.find_all('td')[2].text == "":
-            pass
-        else:
-            #             test_box.append(st1.find_all('td')[2].text)
-            reason = st1.find_all('td')[2].text.replace("\t", "").split("\n")[-1]
-            reason_date = st1.find_all('td')[2].text.replace("\t", "").split("\n")[:-1]
-            reason_date = \
-                " ".join(reason_date).replace("년  ", " - ").replace("월  ", " - ").replace("일 ", "").split(")")[
-                    -1]
+
 
         ### 소유권변동일자
         ### 소유권변동일자는 첫번째줄에서 4번째 td에 해당
