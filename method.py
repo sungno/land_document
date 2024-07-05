@@ -32,35 +32,6 @@ def merge_dataframe(df, account_df):
     return df
 
 
-### 정부24 Login
-def gov_login(driver, wait, user_id, user_pw):
-    while True:
-        driver.get("https://www.gov.kr/nlogin/?Mcode=10003&regType=ctab")
-        wait.until(EC.presence_of_element_located((By.ID, '아이디'))).click()
-        wait.until(EC.presence_of_element_located((By.ID, 'userId'))).send_keys(user_id)
-        wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='다음']"""))).click()
-
-        wait.until(EC.presence_of_element_located((By.ID, 'pwd'))).send_keys(user_pw)
-        wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='로그인']"""))).click()
-        time.sleep(5)
-
-        if "비밀번호 변경" in wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text:
-            print("- 비밀번호 나중에 변경하기")
-            wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='나중에 변경하기']"""))).click()
-            print('- 나중에 변경하기 클릭')
-            time.sleep(5)
-
-        # 팝업 확인후 닫기
-        if '닫기' in wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text:
-            wait.until(EC.presence_of_element_located((By.XPATH, "//button[text()='닫기']"))).click()
-
-        # 로그인 성공여부 체크
-        login_check = wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text
-        if '로그아웃' in login_check:
-            print('- 로그인 성공')
-            return "로그인 성공1"
-        elif '로그인' in login_check:
-            print("- 로그인 실패")
 
 
 # COOL IP 제어
@@ -79,14 +50,7 @@ def remove_tabs_from_dataframe(df):
     return df.applymap(lambda x: x.replace('\t', '') if isinstance(x, str) else x)
 
 
-def driver_close(driver):
-    # 현재 열려 있는 모든 창의 핸들을 가져옵니다.
-    window_handles = driver.window_handles
-    # 각 창을 하나씩 닫습니다.
-    for handle in window_handles:
-        driver.switch_to.window(handle)
-        driver.close()
-    driver.quit()
+
 
 
 # 소요시간 계산산
@@ -124,3 +88,49 @@ def setup_logging():
     logger.addHandler(file_handler)
 
     return logger, file_handler
+
+
+# 이어서 하기 위해 결과 파일에서 마지막 일련번호 찾기
+def df_to_lastnumber(file_name,df):
+    # 업데이트날짜 컬럼을 추가하면서
+    # 기존 수집된 데이터와 이후 수집한 데이터의 열 개수가 달라
+    # none 값 입력후 데이터프레임으로 변환
+    f = open(file_name, 'rt', encoding='UTF8')
+    reader = csv.reader(f)
+    csv_list = []
+    for l in reader:
+        csv_list.append(l)
+    f.close()
+    df_db = pd.DataFrame(csv_list)
+    header = df_db.iloc[0]
+    df_db = df_db[1:]
+    df_db.rename(columns=header, inplace=True)
+    # 저장되어있는 데이터중 마지막 일련번호 찾기
+    df_db_last_number = int(df_db['일련번호'][len(df_db['일련번호']) - 1])
+
+    # 저장되어있는 마지막 일련번호를
+    # input file 에서 찾고
+    # 그 이후 데이터만 다시 df에 할당
+    last_number = list(df['일련번호']).index(df_db_last_number + 1)
+    df = df[last_number:]
+    return df
+
+
+# 실패 파일 저장
+def fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name):
+    fail_df = pd.DataFrame({
+        '일련번호': [num],
+        '시도': [do],
+        '시군구': [si],
+        '읍면동': [dong],
+        '리': [ri],
+        '구분': [san],
+        '번': [jibun],
+        '지': [boobun],
+
+    })
+
+    # 파일이 존재하는지 확인
+    file_exists = os.path.isfile(fail_file_name)
+    # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
+    fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
