@@ -73,6 +73,7 @@ def see_more(driver, wait, san, dong):
         wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
         print("임야대장 클릭(산)")
 
+    time.sleep(1)
     driver.find_element(By.ID, "btnAddress").click()  # 대상토지 소재지 검색
     print('대상 토지 소재지 주소검색 클릭')
     time.sleep(1)
