@@ -78,50 +78,50 @@ try:
             logger.error(f'{user_id} - {total_mail} - input 파일에서 지번 입력값 확인요망')
             continue
 
-        # try:
-            ########################## 매크로 파트 ########################################
-        driver, wait = mdriver.starter()
-        crawler_utils.gov_login(driver, wait, user_id, user_pw)
-
-        # 토지대장 발금 페이지로 이동
-        crawler_utils.issued_go_page(wait)
-
-        # 펼쳐보기
         try:
-            crawler_utils.see_more(driver, wait, san, dong)
+            ########################## 매크로 파트 ########################################
+            driver, wait = mdriver.starter()
+            crawler_utils.gov_login(driver, wait, user_id, user_pw)
+
+            # 토지대장 발금 페이지로 이동
+            crawler_utils.issued_go_page(wait)
+
+            # 펼쳐보기
+            try:
+                crawler_utils.see_more(driver, wait, san, dong)
+            except:
+                print("펼쳐보기 EXCEPTION!")
+                time.sleep(5)
+                driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
+                time.sleep(1)
+                crawler_utils.see_more(driver, wait, san, dong)
+
+            # 동으로 검색한 결과에서 해당 주소 선택
+            crawler_utils.search_result_list_select(driver, si, dong, ri)
+
+            # 나머지 정보 입력
+            crawler_utils.info_input(driver, wait, jibun, boobun)
+
+            # input파일 지번과 열람문서 지번이 일치하는지 체크
+            match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, jibun, boobun)
+            if match_checked == False:
+                method.fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name)
+                logger.critical(
+                    f'{user_id} - {total_mail} - input 지번,부번과 열람문서의 지번,부번이 일치하지 않음 - 정부24오류 - 해당주소는 실패파일에 저장하겠습니다.')
+                crawler_utils.driver_close(driver)
+                continue
+
+            ########################## 수집 파트 ########################################
+            print('토지대장 데이터 수집시작...')
+            parsing_utils.parsing_part(driver, num, san, total_jibun, file_name)
+            # 로그저장
+            logger.debug(f'{user_id} - {total_mail} - 수집에 성공하여 파일에 저장합니다.')
+
         except:
-            print("펼쳐보기 EXCEPTION!")
-            time.sleep(5)
-            driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
-            driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
-            time.sleep(1)
-            crawler_utils.see_more(driver, wait, san, dong)
-
-        # 동으로 검색한 결과에서 해당 주소 선택
-        crawler_utils.search_result_list_select(driver, si, dong, ri)
-
-        # 나머지 정보 입력
-        crawler_utils.info_input(driver, wait, jibun, boobun)
-
-        # input파일 지번과 열람문서 지번이 일치하는지 체크
-        match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, jibun, boobun)
-        if match_checked == False:
             method.fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name)
-            logger.critical(
-                f'{user_id} - {total_mail} - input 지번,부번과 열람문서의 지번,부번이 일치하지 않음 - 정부24오류 - 해당주소는 실패파일에 저장하겠습니다.')
-            crawler_utils.driver_close(driver)
-            continue
-
-        ########################## 수집 파트 ########################################
-        print('토지대장 데이터 수집시작...')
-        parsing_utils.parsing_part(driver, num, san, total_jibun, file_name)
-        # 로그저장
-        logger.debug(f'{user_id} - {total_mail} - 수집에 성공하여 파일에 저장합니다.')
-
-        # except:
-        #     method.fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name)
-        #     # 로그저장
-        #     logger.error(f'{user_id} - {total_mail} - 수집에 실패 하였습니다.실패 파일에 저장하겠습니다.')
+            # 로그저장
+            logger.error(f'{user_id} - {total_mail} - 수집에 실패 하였습니다.실패 파일에 저장하겠습니다.')
         crawler_utils.driver_close(driver)
 
         ### 아이피 변경
