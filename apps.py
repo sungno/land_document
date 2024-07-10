@@ -134,13 +134,5 @@ try:
         print()
     print('■■■■■■ 전체 수집 완료 ■■■■■■')
 
-
-
-
-
-
-
-
-
 except Exception as e:
     print(f"[apps.py] An error occurred: {e}")
