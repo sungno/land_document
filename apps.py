@@ -47,7 +47,11 @@ try:
     df = pd.read_csv("토지대장_VM.csv")
 
     # 이어서 하기 위해 결과 파일에서 마지막 일련번호 찾기
-    df = method.df_to_lastnumber(file_name, df)
+    try:
+        df = method.df_to_lastnumber(file_name, df)
+    except Exception as e:
+        print(e)
+
     # 계정 파일과 INPUT파일 합치기
     original_df = method.merge_dataframe(df, account_df)
     print(f"파일 변환 완료")
