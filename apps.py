@@ -54,7 +54,7 @@ try:
 
     # 계정 파일과 INPUT파일 합치기
     original_df = method.merge_dataframe(df, account_df)
-    print(f"파일 변환 완료")
+    print(f"파일 변환 완료.")
     print(f"□ 수집 시작")
 
     ### 수집 시작
