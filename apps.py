@@ -44,7 +44,7 @@ try:
     file_name = "토지대장_VM_결과.csv"
     fail_file_name = '토지대장_VM_실패리스트.csv'  # 실패파일 파일명 만들기
     account_df = pd.read_csv("계정.csv")
-    df = pd.read_csv("토지대장_VM.csv")
+    df = pd.read_csv("input.csv")
 
     # 이어서 하기 위해 결과 파일에서 마지막 일련번호 찾기
     try:
@@ -75,7 +75,7 @@ try:
         except Exception as e:
             # print(e)
             print(f"★ {total_mail} 수집 실패")
-            print(f"★ 토지대장_VM.csv 파일에서 지번 입력값 확인요망")
+            print(f"★ input.csv 파일에서 지번 입력값 확인요망")
             # 실패파일 저장
             method.fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name)
             # 로그저장
