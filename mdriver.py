@@ -101,12 +101,22 @@ def starter():
     option.add_argument("disable-blink-features=AutomationControlled")  # 자동화 탐지 방지
     option.add_experimental_option("excludeSwitches", ["enable-automation"])  # 자동화 표시 제거
     option.add_experimental_option('useAutomationExtension', False)  # 자동화 확장 기능 사용 안 함
+    print("Driver Waiting")
 
     driver = webdriver.Chrome(options=option)
+    print("Driver Open")
+
     driver.maximize_window()
+    print("Maximize Window")
+
+
     driver.implicitly_wait(20)
     wait = WebDriverWait(driver, 60)
+    print("Wait Driver ")
+
     UA_Data = make_user_agent(UA, False)
     driver.execute_cdp_cmd("Network.setUserAgentOverride", UA_Data)
     driver.execute_cdp_cmd("Emulation.setUserAgentOverride", UA_Data)
+    print("Driver Setting Final")
+
     return driver, wait
