@@ -107,6 +107,13 @@ try:
             # 나머지 정보 입력
             crawler_utils.info_input(driver, wait, jibun, boobun)
 
+            # 팝업 처리
+            try:
+                temporary_wait = WebDriverWait(driver, 10)
+                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop1")))
+            except TimeoutException:
+                print("팝업 없음")
+
             # input파일 지번과 열람문서 지번이 일치하는지 체크
             match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, jibun, boobun)
             if match_checked == False:

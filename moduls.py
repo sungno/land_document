@@ -27,3 +27,4 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import TimeoutException  # 추가된 부분
