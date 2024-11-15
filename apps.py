@@ -111,6 +111,7 @@ try:
             try:
                 temporary_wait = WebDriverWait(driver, 10)
                 elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
+                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
             except TimeoutException:
                 print("팝업 없음")
 
