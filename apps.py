@@ -110,7 +110,7 @@ try:
             # 팝업 처리
             try:
                 temporary_wait = WebDriverWait(driver, 10)
-                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop1")))
+                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
             except TimeoutException:
                 print("팝업 없음")
 
