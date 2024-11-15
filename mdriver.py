@@ -89,6 +89,7 @@ def starter():
     UA = random.choice(UA_list)  # seed = time.time()
     option = Options()
     option.add_argument('user-agent=' + UA)
+    option.add_argument('--no-sandbox')
     option.add_argument("--no-first-run --no-service-autorun --password-store=basic")
     # option.add_argument('--disable-logging')
     # origin 허용(동적데이터 불러오기)
