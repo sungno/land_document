@@ -73,7 +73,7 @@ def make_driver():
 
     driver.implicitly_wait(20)
     wait = WebDriverWait(driver, 60)
-    print("Wait Driver")
+    print("Wait Driver ")
 
     UA_Data = make_user_agent(UA, False)
     driver.execute_cdp_cmd("Network.setUserAgentOverride", UA_Data)
