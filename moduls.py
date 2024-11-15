@@ -8,6 +8,7 @@ import subprocess
 import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup
+import CaptchaCracker as cc
 
 from pywinauto import findwindows
 from pywinauto import application
