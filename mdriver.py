@@ -51,7 +51,7 @@ def read_agents():
 def make_driver():
     UA_list = read_agents()
     UA = random.choice(UA_list)  # seed = time.time()
-    options = uc.ChromeOptions()
+    options = Options()
     # User Agent 속이기
     options.add_argument(f'--user-agent={UA}')
     # options.add_argument("--start-fullscreen")  # pc용 사이즈
@@ -64,15 +64,21 @@ def make_driver():
 
     chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
     # driver = uc.Chrome(options=options)
+
     driver = webdriver.Chrome(options=options)
+    print("Driver Open")
+
     driver.maximize_window()
+    print("Maximize Window")
+
     driver.implicitly_wait(20)
     wait = WebDriverWait(driver, 60)
+    print("Wait Driver")
 
     UA_Data = make_user_agent(UA, False)
     driver.execute_cdp_cmd("Network.setUserAgentOverride", UA_Data)
     driver.execute_cdp_cmd("Emulation.setUserAgentOverride", UA_Data)
-
+    print("Driver Setting Final")
     return driver, wait
 
 
