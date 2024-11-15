@@ -90,14 +90,13 @@ def starter():
     option = Options()
     option.add_argument('user-agent=' + UA)
     option.add_argument("--no-first-run --no-service-autorun --password-store=basic")
-    option.add_argument('--disable-logging')
+    # option.add_argument('--disable-logging')
     # origin 허용(동적데이터 불러오기)
-    option.add_argument("--disable-web-security")
-    option.add_argument("--disable-site-isolation-trials")
+    # option.add_argument("--disable-web-security")
+    # option.add_argument("--disable-site-isolation-trials")
     option.headless = False
     option.add_argument('window-size=1920x1080')
     option.add_argument('lang=ko_KR')
-    option.add_experimental_option("detach", False)
     option.add_argument("disable-blink-features=AutomationControlled")  # 자동화 탐지 방지
     option.add_experimental_option("excludeSwitches", ["enable-automation"])  # 자동화 표시 제거
     option.add_experimental_option('useAutomationExtension', False)  # 자동화 확장 기능 사용 안 함
