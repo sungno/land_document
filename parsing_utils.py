@@ -166,7 +166,6 @@ def parsing_part(driver, num, san, total_jibun, file_name):
                     elif sh1.find_all('td')[1].text == '':
                         pass
                     else:
-
                         sh_change_date_box.append(
                             sh1.find_all('td')[1].text.replace("\n", "").replace("\t", "").replace("년 ",
                                                                                                    "-").replace(

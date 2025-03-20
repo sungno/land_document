@@ -72,9 +72,6 @@ def driver_close(driver):
     driver.quit()
 
 
-#
-
-
 # 토지대장 발금 페이지로 이동
 def issued_go_page(wait):
     print('토지임야 체크')
