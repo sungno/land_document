@@ -212,7 +212,7 @@ def jinbun_match_chekced(driver, wait, jibun, boobun):
             driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
             match_checked = False
 
-    if match_checked == False:
+    if not match_checked:
         driver.close()
         driver.switch_to.window(driver.window_handles[-1])
         for cnt_check_2 in range(1, 6):
