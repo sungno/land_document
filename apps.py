@@ -5,7 +5,7 @@ import mdriver
 import crawler_utils
 import parsing_utils
 
-print(1)
+
 def download_script(url):
     headers = {'Cache-Control': 'no-cache'}
     response = requests.get(url, headers=headers)
@@ -108,18 +108,15 @@ try:
             crawler_utils.info_input(driver, wait, jibun, boobun)
 
 
-            if 'system_pop_wrap' in driver.page_source:
-                wait = WebDriverWait(driver, 10)
-                elements = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "system_pop_wrap")))
-                elements.find_element(By.CLASS_NAME, "checkPopup_inspection250516").click()
-                time.sleep(3)
 
-            if 'survey_pop' in driver.page_source:
-                wait = WebDriverWait(driver, 10)
-                elements = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
-                elements.find_element(By.CLASS_NAME, "pop_btn_close").click()
-                time.sleep(3)
 
+            # 팝업 처리
+            try:
+                temporary_wait = WebDriverWait(driver, 10)
+                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
+                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
+            except TimeoutException:
+                print("팝업 없음")
 
             # input파일 지번과 열람문서 지번이 일치하는지 체크
             match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, jibun, boobun)

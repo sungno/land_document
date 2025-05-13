@@ -50,8 +50,11 @@ def gov_login(driver, wait, user_id, user_pw):
             time.sleep(5)
 
         # 팝업 확인후 닫기
-        if '닫기' in wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text:
-            wait.until(EC.presence_of_element_located((By.XPATH, "//button[text()='닫기']"))).click()
+        if 'system_pop_wrap' in driver.page_source:
+            wait = WebDriverWait(driver, 10)
+            elements = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "system_pop_wrap")))
+            elements.find_element(By.CLASS_NAME, "checkPopup_inspection250516").click()
+            time.sleep(3)
 
         # 로그인 성공여부 체크
         login_check = wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text
