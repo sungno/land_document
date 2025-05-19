@@ -107,10 +107,16 @@ def see_more(driver, wait, san, dong):
     time.sleep(3)
     if san == '산':
         wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
+        elem = wait.until(EC.visibility_of_element_located((By.XPATH, "//label[text()='임야 대장']")))
+        actions = ActionChains(driver)
+        actions.move_to_element(elem).click().perform()
         print("임야대장 클릭(산)")
 
     time.sleep(1)
-    driver.find_element(By.ID, "btnAddress").click()  # 대상토지 소재지 검색
+    elem = driver.find_element(By.ID, "btnAddress")  # 대상토지 소재지 검색
+    actions = ActionChains(driver)
+    actions.move_to_element(elem).click().perform()
+
     print('대상 토지 소재지 주소검색 클릭')
     time.sleep(1)
     driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
@@ -166,10 +172,15 @@ def info_input(driver, wait, jibun, boobun):
         boobun)
     print('부번 입력 완료')
     ### 연혁 인쇄 유무(히스토리)
-    wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']"""))).click()
+    elem = wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']""")))
+    actions = ActionChains(driver)
+    actions.move_to_element(elem).click().perform()
     print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
+
     ### 민원신청하기
-    wait.until(EC.presence_of_element_located((By.ID, "btn_end"))).click()
+    elem = wait.until(EC.presence_of_element_located((By.ID, "btn_end")))
+    actions = ActionChains(driver)
+    actions.move_to_element(elem).click().perform()
     print("민원신청하기 클릭")
 
 
