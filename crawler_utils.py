@@ -190,6 +190,7 @@ def jinbun_match_chekced(driver, wait, jibun, boobun):
     time.sleep(5)
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn.secondary.xsm"))).click()  # 열람문서 클릭
     print("열람문서 클릭")
+    time.sleep(5)
     driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
 
     # input 지번 편집
