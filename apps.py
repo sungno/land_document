@@ -7,7 +7,6 @@ import parsing_utils
 
 
 
-
 def download_script(url):
     headers = {'Cache-Control': 'no-cache'}
     response = requests.get(url, headers=headers)
