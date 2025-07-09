@@ -22,6 +22,7 @@ def result_img():
 ### 정부24 Login
 def gov_login(driver, wait, user_id, user_pw):
     while True:
+        print('- 로그인 시도')
         driver.get("https://plus.gov.kr/login/loginIdPwd")
         # 아이디 입력후 다음버튼 클릭
         wait.until(EC.presence_of_element_located((By.ID, """input_id""")))

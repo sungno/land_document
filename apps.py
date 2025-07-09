@@ -5,6 +5,9 @@ import mdriver
 import crawler_utils
 import parsing_utils
 
+print(1)
+print("Ver 3.0")
+print("2025-07-09")
 
 
 def download_script(url):
