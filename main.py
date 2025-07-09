@@ -30,7 +30,9 @@ def download_and_load_all_scripts(scripts_json_url):
 
 
 if __name__ == "__main__":
-    print("Ver 2.0")
+    print(1)
+    print("Ver 3.0")
+    print("2025-07-09")
     try:
         # scripts.json 파일의 URL
         scripts_json_url = "https://raw.githubusercontent.com/sungno/land_document/main/scripts.json"
