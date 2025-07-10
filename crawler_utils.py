@@ -58,12 +58,19 @@ def gov_login(driver, wait, user_id, user_pw):
             print('- 다음에 변경하기 클릭')
         time.sleep(3)
 
-        # 팝업 확인후 닫기
-        if 'system_pop_wrap' in driver.page_source:
-            wait = WebDriverWait(driver, 10)
-            elements = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "system_pop_wrap")))
-            elements.find_element(By.CLASS_NAME, "checkPopup_inspection250516").click()
-            time.sleep(3)
+        # '비밀번호 변경없이 진행합니다.' modal 처리
+        time.sleep(1)
+        body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
+        if '변경 없이 진행합니다.' in body_text:
+            top_modal = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "iw-modal-alert.on")))
+            top_modal.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
+
+        # '정부24 개편 기념 이벤트' 모달 처리
+        time.sleep(1)
+        if 'iw-modal-auto main-popup on' in driver.page_source:
+            print("'정부24 개편 기념 이벤트' 모달 처리 완료")
+            popup_modal = wait.until(EC.presence_of_element_located((By.ID, "layerModal_main_popup")))
+            popup_modal.find_element(By.TAG_NAME, 'button').click()
 
         # 로그인 성공여부 체크
         body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
@@ -72,6 +79,7 @@ def gov_login(driver, wait, user_id, user_pw):
         else:
             print("로그인 성공")
             return "- 로그인 성공"
+        time.sleep(1)
 
 
 def driver_close(driver):
@@ -87,10 +95,10 @@ def driver_close(driver):
 # 토지대장 발금 페이지로 이동
 def issued_go_page(wait):
     print('토지임야 체크')
-    for c in wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "swiper-slide"))):
-        if '토지(임야)' in c.text:
+    for c in wait.until(EC.presence_of_all_elements_located((By.XPATH, """//span[text()='토지(임야)대장']"""))):
+        if '토지(임야)대장' in c.text:
             c.click()
-            print('토지(임야) 클릭')
+            print("'토지(임야)대장' 클릭")
             break
     wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='발급하기']"""))).click()
     print("발급하기 클릭")
