@@ -5,7 +5,7 @@ import mdriver
 import crawler_utils
 import parsing_utils
 
-print(1)
+print(2)
 print("Ver 3.0")
 print("2025-07-10")
 
@@ -115,16 +115,16 @@ try:
 
 
             # 팝업 처리
-            try:
-                temporary_wait = WebDriverWait(driver, 10)
-                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
-                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
-            except TimeoutException:
-                print("팝업 없음")
+            # try:
+            #     temporary_wait = WebDriverWait(driver, 10)
+            #     elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
+            #     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
+            # except TimeoutException:
+            #     print("팝업 없음")
 
             # input파일 지번과 열람문서 지번이 일치하는지 체크
             match_checked, total_jibun = crawler_utils.jinbun_match_chekced(driver, wait, jibun, boobun)
-            if match_checked == False:
+            if not match_checked:
                 method.fail_savefile(num, do, si, dong, ri, san, jibun, boobun, fail_file_name)
                 logger.critical(
                     f'{user_id} - {total_mail} - input 지번,부번과 열람문서의 지번,부번이 일치하지 않음 - 정부24오류 - 해당주소는 실패파일에 저장하겠습니다.')

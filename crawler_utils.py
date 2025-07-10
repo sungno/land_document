@@ -204,11 +204,14 @@ def info_input(driver, wait, jibun, boobun):
 # input파일 지번과 열람문서 지번이 일치하는지 체크
 def jinbun_match_chekced(driver, wait, jibun, boobun):
     ### 문서 열람후 새창
-    time.sleep(5)
-    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn.secondary.xsm"))).click()  # 열람문서 클릭
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, "btn.secondary.xsm"))).click()  # 열람문서 클릭
     print("열람문서 클릭")
-    time.sleep(5)
-    driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+
+    ### 열람된 문서로 새창 변환
+    while True:
+        if len(driver.window_handles) > 1:
+            driver.switch_to.window(driver.window_handles[-1])
+            break
 
     # input 지번 편집
     if boobun == "":
