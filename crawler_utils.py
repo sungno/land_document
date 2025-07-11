@@ -41,7 +41,11 @@ def gov_login(driver, wait, user_id, user_pw):
             file.write(element_png)
 
         # 저장된 캡차(보안문자) 이미지 해독
-        capcha_number = result_img()
+        while True:
+            capcha_number = result_img()
+            if len(capcha_number) == 6:
+                break
+            time.sleep(3)
 
         # 보안문자 입력
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, "input.lg"))).send_keys(capcha_number)
