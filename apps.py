@@ -7,7 +7,7 @@ import parsing_utils
 
 print(2)
 print("Ver 3.0")
-print("2025-07-10")
+print("2025-07-11")
 
 
 def download_script(url):
