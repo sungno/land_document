@@ -116,7 +116,7 @@ try:
             # 나머지 정보 입력
             crawler_utils.info_input(driver, wait, jibun, boobun)
 
-
+            time.sleep(3)
 
 
             # 팝업 처리
