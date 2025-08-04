@@ -91,8 +91,13 @@ try:
             driver, wait = mdriver.starter()
             crawler_utils.gov_login(driver, wait, user_id, user_pw)
 
-            # 토지대장 발금 페이지로 이동
-            crawler_utils.issued_go_page(wait)
+            if user_id == 'pax8901':
+                # 토지대장 발금 페이지로 이동
+                # 자주 찾는 서비스에 없는경우엔 관심서비스 목록에서 클릭
+                crawler_utils.issued_go_page_2(wait)
+            else:
+                # 토지대장 발금 페이지로 이동
+                crawler_utils.issued_go_page(wait)
 
             # 펼쳐보기
             try:

@@ -108,6 +108,22 @@ def issued_go_page(wait):
     print("발급하기 클릭")
 
 
+# 토지대장 발금 페이지로 이동
+def issued_go_page_2(wait):
+    """
+     자주 찾는 서비스에 없는 경우
+    :param wait:
+    :return:
+    """
+    print('토지임야 체크')
+    land_issued_element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn-txt.ico-arr-right-white""")))
+    if land_issued_element:
+        land_issued_element.click()
+        print("'토지(임야)대장' 클릭")
+        wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='발급하기']"""))).click()
+        print("발급하기 클릭")
+
+
 # 펼쳐보기
 def see_more(driver, wait, san, dong):
     # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
