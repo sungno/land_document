@@ -208,11 +208,20 @@ def info_input(driver, wait, jibun, boobun):
         EC.presence_of_element_located((By.NAME, "토지임야대장신청서/IN-토지임야대장신청서/신청토지소재지/주소정보/상세주소/호"))).send_keys(
         boobun)
     print('부번 입력 완료')
-    ### 연혁 인쇄 유무(히스토리)
-    elem = wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']""")))
+
+    ### 토지이동연혁 인쇄 유무(히스토리)
+    land_history_division = '토지임야대장신청서_IN-토지임야대장신청서_토지연혁구분_.라디오코드_1'
+    elem = wait.until(EC.presence_of_element_located((By.XPATH, f"""//label[@for='{land_history_division}']""")))
     actions = ActionChains(driver)
     actions.move_to_element(elem).click().perform()
-    print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
+    print('토지이동연혁 인쇄 유무 -> 인쇄함 클릭 ')
+
+    ### 소유권연혁 인쇄 유무(히스토리)
+    ownership_division = "토지임야대장신청서_IN-토지임야대장신청서_소유권연혁구분_.라디오코드_1"
+    elem = wait.until(EC.presence_of_element_located((By.XPATH, f"""//label[@for='{ownership_division}']""")))
+    actions = ActionChains(driver)
+    actions.move_to_element(elem).click().perform()
+    print('소유권연혁 인쇄 유무 -> 인쇄함 클릭 ')
 
     ### 민원신청하기
     elem = wait.until(EC.presence_of_element_located((By.ID, "btn_end")))

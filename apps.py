@@ -7,8 +7,9 @@ import parsing_utils
 
 print(4)
 print("Ver 3.0")
-print("2025-07-11")
-
+print("2025-10-31")
+print("토지이동연혁 인쇄유무, 소유권연혁 인쇄유무 추가")
+print("="*50)
 
 def download_script(url):
     headers = {'Cache-Control': 'no-cache'}
