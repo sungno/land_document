@@ -24,7 +24,15 @@ def gov_login(driver, wait, user_id, user_pw):
     while True:
         while True:
             print('- 로그인 시도')
-            driver.get("https://plus.gov.kr/login/loginIdPwd")
+            # driver.get("https://plus.gov.kr/login/loginIdPwd")
+
+            driver.get("https://plus.gov.kr/?bypass=dusakf!")
+
+            # 연말정산때문에 수정
+            login_before = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "login-before")))
+            login_before.find_element(By.CLASS_NAME, "btn").click()
+            wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='아이디 로그인']"))).click()
+
             # 아이디 입력후 다음버튼 클릭
             wait.until(EC.presence_of_element_located((By.ID, """input_id""")))
             wait.until(EC.element_to_be_clickable((By.ID, """input_id"""))).send_keys(user_id)
