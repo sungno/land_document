@@ -31,6 +31,10 @@ def gov_login(driver, wait, user_id, user_pw):
             # 연말정산때문에 수정
             login_before = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "login-before")))
             login_before.find_element(By.CLASS_NAME, "btn").click()
+            time.sleep(1)
+
+            driver.find_element(By.TAG_NAME, "body").send_keys(Keys.END)
+            time.sleep(1)
             wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='아이디 로그인']"))).click()
 
             # 아이디 입력후 다음버튼 클릭
