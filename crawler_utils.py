@@ -65,7 +65,7 @@ def gov_login(driver, wait, user_id, user_pw):
         # 로그인 버튼 클릭
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
 
-        time.sleep(3)
+        time.sleep(5)
         if "비밀번호 변경" in wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text:
             print("- 비밀번호 나중에 변경하기")
             driver.get("https://plus.gov.kr/?bypass=dusakf!") # 연말정산때문에
