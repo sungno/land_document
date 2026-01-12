@@ -21,6 +21,8 @@ def result_img():
 
 ### 정부24 Login
 def gov_login(driver, wait, user_id, user_pw):
+    print("xxx")
+
     while True:
         while True:
             print('- 로그인 시도')
@@ -64,6 +66,11 @@ def gov_login(driver, wait, user_id, user_pw):
         time.sleep(1)
         # 로그인 버튼 클릭
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
+        time.sleep(3)
+
+        if '연말정산용 제증명 발급 서비스' in driver.page_source:
+            year_cont = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "year_cont")))[-1]
+            year_cont.find_element(By.CLASS_NAME, "arrow_btn").click()
 
         time.sleep(5)
         if "비밀번호 변경" in wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text:
