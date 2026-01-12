@@ -68,10 +68,12 @@ def gov_login(driver, wait, user_id, user_pw):
         time.sleep(3)
         if "비밀번호 변경" in wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text:
             print("- 비밀번호 나중에 변경하기")
-            wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).send_keys(Keys.END)
-            time.sleep(1)
-            wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.xlg.tertiary"""))).click()
-            print('- 다음에 변경하기 클릭')
+            driver.get("https://plus.gov.kr/?bypass=dusakf!") # 연말정산때문에
+
+            # wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).send_keys(Keys.END)
+            # time.sleep(1)
+            # wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.xlg.tertiary"""))).click()
+            # print('- 다음에 변경하기 클릭')
         time.sleep(3)
 
         # '비밀번호 변경없이 진행합니다.' modal 처리
