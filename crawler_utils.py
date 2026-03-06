@@ -31,6 +31,15 @@ def gov_login(driver, wait, user_id, user_pw):
             driver.get("https://plus.gov.kr/?bypass=dusakf!")
             time.sleep(2)
 
+            try:
+                # 점검 모달
+                modal_id = wait.until(EC.presence_of_element_located((By.ID, "layerModal_main_popup")))
+                modal_id.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
+            except Exception as e:
+                print(e)
+                print("점검 모달 예외 발생")
+
+
             # 연말정산때문에 수정
             login_before = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "login-before")))
             login_before.find_element(By.CLASS_NAME, "btn").click()
