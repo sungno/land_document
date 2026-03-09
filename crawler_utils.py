@@ -46,8 +46,15 @@ def gov_login(driver, wait, user_id, user_pw):
             login_before.find_element(By.CLASS_NAME, "btn").click()
             time.sleep(3)
 
+            while True:
+                login_link_pop = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "login-link.open-pop")))
+                time.sleep(3)
+                if login_link_pop:
+                    break
+                time.sleep(3)
+
             driver.find_element(By.TAG_NAME, "body").send_keys(Keys.END)
-            time.sleep(3)
+            time.sleep(5)
             for z in wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "login-link.open-pop"))):
                 if '아이디' in z.text:
                     z.click()
