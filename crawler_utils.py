@@ -82,13 +82,6 @@ def gov_login(driver, wait, user_id, user_pw):
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
         time.sleep(3)
 
-        try:
-            # 점검 모달
-            modal_id = wait.until(EC.presence_of_element_located((By.ID, "layerModal_main_popup")))
-            modal_id.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
-        except Exception as e:
-            print(e)
-
         if '연말정산용 제증명 발급 서비스' in driver.page_source:
             year_cont = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "year_cont")))[-1]
             year_cont.find_element(By.CLASS_NAME, "arrow_btn").click()

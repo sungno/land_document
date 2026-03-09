@@ -5,7 +5,7 @@ import mdriver
 import crawler_utils
 import parsing_utils
 
-print("Ver 3.0")
+print("Ver 3.1")
 print("2026-03-09")
 print("점검 안내 모달 처리\n\n")
 print("="*50)
