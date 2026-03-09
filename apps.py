@@ -6,8 +6,8 @@ import crawler_utils
 import parsing_utils
 
 print("Ver 3.0")
-print("2025-10-31")
-print("토지이동연혁 인쇄유무, 소유권연혁 인쇄유무 추가\n\n")
+print("2026-03-09")
+print("점검 안내 모달 처리\n\n")
 print("="*50)
 
 def download_script(url):
